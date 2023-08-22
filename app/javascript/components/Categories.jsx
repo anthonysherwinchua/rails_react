@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Categories = () => {
-  const navigate = useNavigate();
   const [categories, setCategories] = useState(Array(0));
   const [errorMessage, setErrorMessage] = useState('');
 
