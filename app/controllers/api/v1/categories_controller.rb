@@ -1,9 +1,14 @@
 class Api::V1::CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show destroy]
+  before_action :set_category, only: [:show, :destroy]
 
   def index
     categories = Category.all.order(created_at: :desc)
+    # NOTE: this is only to show "fetching messsage" on the front end
+    sleep([*0..2].sample)
+
+    # NOTE: exchange the render to show
     render json: categories
+    # render json: { error: 'Something went wrong' }, status: :unprocessable_entity
   end
 
   def create
