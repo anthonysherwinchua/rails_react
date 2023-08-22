@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  root 'homepage#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources :categories, only: [:index, :create, :show, :destroy]
+    end
+  end
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root 'homepage#index'
+  get '/*path' => 'homepage#index'
 end
