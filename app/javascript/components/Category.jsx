@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const Categories = () => {
-  const navigate = useNavigate();
-  const [categories, setCategories] = useState(Array(0));
+const Category = () => {
+  const params = useParams();
+  const [category, setCategory] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setErrorMessage(fetchingCategories);
+    setErrorMessage(fetchingCategory);
 
-    const url = "/api/v1/categories";
+    const url = `/api/v1/categories/${params.id}`;
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -20,7 +20,7 @@ const Categories = () => {
       })
       .then((res) => {
         if (res !== undefined) {
-          setCategories(res)
+          setCategory(res)
         }
       })
       .catch((e) => setErrorMessage(e));
@@ -28,13 +28,13 @@ const Categories = () => {
 
   const noCategoryFound = (
     <h4>
-      No categories yet.Why not <Link to="/new_category">create one</Link>
+      Category not found.
     </h4>
   );
 
-  const fetchingCategories = (
+  const fetchingCategory = (
     <h4>
-      Fetching categories. Please wait
+      Fetching category details. Please wait
     </h4>
   );
 
@@ -44,41 +44,51 @@ const Categories = () => {
     </div>
   );
 
-  const allCategories = categories.map((category, index) => (
-    <div key={index} className="col-md-6 col-lg-4">
+  const categoryDetail = (
+    <div className="col-6">
       <div className="card mb-4">
         <div className="card-body">
           <h5 className="card-title">{category.name}</h5>
-          <Link to={`/categories/${category.id}`} className="btn custom-button">
-            View Category
-          </Link>
+
+          <table className="table table-borderless">
+            <tr>
+              <td>ID</td>
+              <td>{category.id}</td>
+            </tr>
+            <tr>
+              <td>Created At</td>
+              <td>{category.created_at}</td>
+            </tr>
+            <tr>
+              <td>Updated At</td>
+              <td>{category.updated_at}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
-  ));
+  );
 
   return (
     <>
       <Link to="/" className="btn btn-link">
         Home
       </Link>
+      <Link to="/categories" className="btn btn-link">
+        Categories
+      </Link>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container">
-          <h1 className="display-4">List of Categories</h1>
+          <h1 className="display-4">Category Detail Page</h1>
           <p className="lead text-muted">
-            Here are the list of all categories available
+            Here are the details of {category.name}
           </p>
         </div>
       </section>
       <div>
         <main className="container">
-          <div className="text-end mb-3">
-            <Link to="/new_category" className="btn custom-button">
-              Create New Category
-            </Link>
-          </div>
-          <div className="row">
-            {categories.length > 0 ? allCategories : noCategory}
+          <div className="row justify-content-center">
+            {category !== undefined ? categoryDetail : noCategory}
           </div>
         </main>
       </div>
@@ -86,4 +96,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Category;

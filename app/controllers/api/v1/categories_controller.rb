@@ -21,7 +21,7 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def show
-    render json: @category
+    render json: ::CategorySerializer.new(@category).as_json
   end
 
   def destroy
