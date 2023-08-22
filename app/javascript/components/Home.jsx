@@ -2,22 +2,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default () => (
-  <div className="p-5 m-4 bg-light rounded-3">
-    <div className="container-fluid py-5">
-      <h1 className="display-5 fw-bold">
-        Lorem Ipsum
-      </h1>
-      <p className="fs-4">
-        Vestibulum pretium nibh eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin mattis, lorem sit amet pretium feugiat, mauris ante venenatis arcu, id elementum metus massa nec orci. Aenean interdum condimentum neque nec mattis. Maecenas et nulla magna. Maecenas sit amet auctor nibh, vel tincidunt nisl. Curabitur convallis vehicula rhoncus. Curabitur scelerisque placerat sollicitudin. Etiam id est id sem sodales malesuada. Aenean feugiat lacus quis mauris varius posuere. Phasellus elit orci, semper faucibus finibus id, maximus vitae dui.
-      </p>
-      <Link
-        to="#"
-        className="btn btn-primary btn-lg"
-        role="button"
-      >
-        Link to Next Page
-      </Link>
+  <>
+    <Link to="/" className="btn btn-link">
+      Home
+    </Link>
+    <Link to="/categories" className="btn btn-link">
+      Categories
+    </Link>
+    <div className="p-5 m-4 bg-light rounded-3">
+      <div className="container-fluid py-5">
+        <h1 className="display-5 fw-bold">
+          This is the Homepage
+        </h1>
+        <p className="fs-4">
+          This is the landing page for this project. Click on the link below to go the categories listing page.
+        </p>
+        <Link
+          to="/categories"
+          className="btn btn-primary btn-lg"
+          role="button"
+        >
+          View Categories
+        </Link>
+      </div>
     </div>
-  </div>
+  </>
 );
 

@@ -62,6 +62,9 @@ const Categories = () => {
       <Link to="/" className="btn btn-link">
         Home
       </Link>
+      <Link to="/categories" className="btn btn-link">
+        Categories
+      </Link>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container">
           <h1 className="display-4">List of Categories</h1>
@@ -73,7 +76,7 @@ const Categories = () => {
       <div>
         <main className="container">
           <div className="text-end mb-3">
-            <Link to="/new_category" className="btn custom-button">
+            <Link to="/categories/new" className="btn custom-button">
               Create New Category
             </Link>
           </div>
