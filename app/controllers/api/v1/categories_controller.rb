@@ -7,11 +7,11 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def create
-    category = Category.create!(category_params)
-    if category
-      render json: category
+    category = Category.new(category_params)
+    if category.save
+      render json: category, status: :created
     else
-      render json: category.errors
+      render json: category.errors, status: :unprocessable_entity
     end
   end
 
@@ -21,7 +21,7 @@ class Api::V1::CategoriesController < ApplicationController
 
   def destroy
     @category&.destroy
-    render json: { message: 'Category deleted!' }
+    render json: { message: 'Category deleted!' }, status: :no_content
   end
 
   private
