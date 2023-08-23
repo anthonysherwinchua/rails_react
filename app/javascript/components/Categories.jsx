@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { handleResponse } from '../components/helpers/handleResponse'
-import ReactHtmlParser from "react-html-parser";
+import { handleResponse } from './helpers/handleResponse'
+import Error from "./views/common/Error";
+import CategoryPanel from "./views/categories/CategoryPanel";
 
 const Categories = () => {
   const [categories, setCategories] = useState(Array(0));
@@ -11,37 +12,29 @@ const Categories = () => {
     const url = "/api/v1/categories";
     fetch(url)
       .then(res => {
-        handleResponse(res, (r) => {
+        return handleResponse(res, (r) => {
           if (r.status == 'error') {
             setMessage(r.data.error)
           } else {
             setCategories(r.data)
           }
-        })
+        });
       })
       .catch((e) => {
         setMessage('Something went wrong. <br/>Error Message: ' + e)
       });
   }, []);
 
-  const noCategory = (
-    <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
-      <h4>{ReactHtmlParser(message)}</h4>
-    </div>
-  );
-
   const allCategories = categories.map((category, index) => (
-    <div key={index} className="col-md-6 col-lg-4">
-      <div className="card mb-4">
-        <div className="card-body">
-          <h5 className="card-title">{category.name}</h5>
-          <Link to={`/categories/${category.id}`} className="btn custom-button">
-            View Category
-          </Link>
-        </div>
-      </div>
-    </div>
+    <CategoryPanel index={index} category={category} />
   ));
+
+  let content;
+  if (categories.length > 0) {
+    content = allCategories
+  } else {
+    content = <Error message={message}></Error>
+  }
 
   return (
     <>
@@ -67,7 +60,7 @@ const Categories = () => {
             </Link>
           </div>
           <div className="row">
-            {categories.length > 0 ? allCategories : noCategory}
+            {content}
           </div>
         </main>
       </div>
