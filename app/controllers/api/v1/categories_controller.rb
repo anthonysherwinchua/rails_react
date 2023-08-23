@@ -8,7 +8,7 @@ class Api::V1::CategoriesController < ApplicationController
 
     # NOTE: exchange the render to show
     render json: categories
-    # render json: { error: 'Something went wrong' }, status: :unprocessable_entity
+    # render json: { error: 'Something went wrong. Please try again or contact the administrator.' }, status: :unprocessable_entity
   end
 
   def create

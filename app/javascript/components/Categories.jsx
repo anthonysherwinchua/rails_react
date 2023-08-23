@@ -1,45 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { handleResponse } from '../components/helpers/handleResponse'
+import ReactHtmlParser from "react-html-parser";
 
 const Categories = () => {
   const [categories, setCategories] = useState(Array(0));
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState('Fetching categories. Please wait');
 
   useEffect(() => {
-    setErrorMessage(fetchingCategories);
-
     const url = "/api/v1/categories";
     fetch(url)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          setErrorMessage(noCategoryFound)
-        }
+      .then(res => {
+        handleResponse(res, (r) => {
+          if (r.status == 'error') {
+            setMessage(r.data.error)
+          } else {
+            setCategories(r.data)
+          }
+        })
       })
-      .then((res) => {
-        if (res !== undefined) {
-          setCategories(res)
-        }
-      })
-      .catch((e) => setErrorMessage(e));
+      .catch((e) => {
+        setMessage('Something went wrong. <br/>Error Message: ' + e)
+      });
   }, []);
-
-  const noCategoryFound = (
-    <h4>
-      No categories yet.Why not <Link to="/new_category">create one</Link>
-    </h4>
-  );
-
-  const fetchingCategories = (
-    <h4>
-      Fetching categories. Please wait
-    </h4>
-  );
 
   const noCategory = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
-      {errorMessage}
+      <h4>{ReactHtmlParser(message)}</h4>
     </div>
   );
 
