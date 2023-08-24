@@ -25,8 +25,8 @@ const Categories = () => {
       });
   }, []);
 
-  const allCategories = categories.map((category, index) => (
-    <CategoryPanel index={index} category={category} />
+  const allCategories = categories.map((category, key) => (
+    <CategoryPanel key={key} category={category} />
   ));
 
   let content;
