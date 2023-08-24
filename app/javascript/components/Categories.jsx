@@ -38,12 +38,6 @@ const Categories = () => {
 
   return (
     <>
-      <Link to="/" className="btn btn-link">
-        Home
-      </Link>
-      <Link to="/categories" className="btn btn-link">
-        Categories
-      </Link>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container">
           <h1 className="display-4">List of Categories</h1>
