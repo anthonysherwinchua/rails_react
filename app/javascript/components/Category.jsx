@@ -48,21 +48,25 @@ const Category = () => {
     <div className="col-6">
       <div className="card mb-4">
         <div className="card-body">
-          <h5 className="card-title">{category.name}</h5>
-
           <table className="table table-borderless">
-            <tr>
-              <td>ID</td>
-              <td>{category.id}</td>
-            </tr>
-            <tr>
-              <td>Created At</td>
-              <td>{category.created_at}</td>
-            </tr>
-            <tr>
-              <td>Updated At</td>
-              <td>{category.updated_at}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className="text-end">ID</td>
+                <td>{category.id}</td>
+              </tr>
+              <tr>
+                <td className="text-end">Name</td>
+                <td>{category.name}</td>
+              </tr>
+              <tr>
+                <td className="text-end">Created At</td>
+                <td>{category.created_at}</td>
+              </tr>
+              <tr>
+                <td className="text-end">Updated At</td>
+                <td>{category.updated_at}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -73,10 +77,7 @@ const Category = () => {
     <>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container">
-          <h1 className="display-4">Category Detail Page</h1>
-          <p className="lead text-muted">
-            Here are the details of {category.name}
-          </p>
+          <h1 className="display-4"> {category.name}</h1>
         </div>
       </section>
       <div>
