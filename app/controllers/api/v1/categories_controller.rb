@@ -1,5 +1,5 @@
 class Api::V1::CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :destroy]
+  before_action :set_category, only: [:show, :update, :destroy]
 
   def index
     categories = Category.all.order(created_at: :desc)
@@ -17,6 +17,14 @@ class Api::V1::CategoriesController < ApplicationController
       render json: category, status: :created
     else
       render json: category.errors.full_messages, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @category.update(category_params)
+      render json: @category, status: :ok
+    else
+      render json: @category.errors.full_messages, status: :unprocessable_entity
     end
   end
 

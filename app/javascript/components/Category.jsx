@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Category = () => {
   const params = useParams();
@@ -84,6 +84,15 @@ const Category = () => {
         <main className="container">
           <div className="row justify-content-center">
             {category !== undefined ? categoryDetail : noCategory}
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-md-3 justify-content-center">
+              <div className="d-grid gap-2">
+                <Link to={`/categories/${category.id}/edit`} className="btn btn-primary">
+                  Edit Category
+                </Link>
+              </div>
+            </div>
           </div>
         </main>
       </div>
