@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Category = () => {
   const params = useParams();
@@ -71,12 +71,6 @@ const Category = () => {
 
   return (
     <>
-      <Link to="/" className="btn btn-link">
-        Home
-      </Link>
-      <Link to="/categories" className="btn btn-link">
-        Categories
-      </Link>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container">
           <h1 className="display-4">Category Detail Page</h1>
