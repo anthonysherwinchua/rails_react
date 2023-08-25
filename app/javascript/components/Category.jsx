@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { handleResponse } from './helpers/handleResponse'
+import Confirm from './views/common/Confirm'
 
 const Category = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const [category, setCategory] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,6 +28,34 @@ const Category = () => {
       })
       .catch((e) => setErrorMessage(e));
   }, []);
+
+  const deleteCategory = () => {
+    const url = `/api/v1/categories/${params.id}`;
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then(res => {
+        handleResponse(res, (r) => {
+          if (r.status == 'error') {
+            const errorMessages = r.data.map((message, key) => (
+              <Error key={key} message={message} />
+            ));
+            setMessage(errorMessages)
+          } else {
+            navigate(`/categories`)
+          }
+        })
+      })
+      .catch((e) => {
+        setMessage('Something went wrong. <br/>Error Message: ' + e)
+      });
+  };
 
   const noCategoryFound = (
     <h4>
@@ -91,6 +122,10 @@ const Category = () => {
                 <Link to={`/categories/${category.id}/edit`} className="btn btn-primary">
                   Edit Category
                 </Link>
+                <Link className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                  Delete Category
+                </Link>
+                <Confirm modalID="confirmModal" title={"Deleting Category: " + category.name} message="Are you sure?" confirm="Delete!" cancel="No" onConfirm={deleteCategory} />
               </div>
             </div>
           </div>
