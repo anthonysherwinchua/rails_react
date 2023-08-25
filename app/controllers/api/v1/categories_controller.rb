@@ -16,7 +16,7 @@ class Api::V1::CategoriesController < ApplicationController
     if category.save
       render json: category, status: :created
     else
-      render json: category.errors.full_messages, status: :unprocessable_entity
+      render json: category.errors, status: :unprocessable_entity
     end
   end
 
@@ -24,7 +24,7 @@ class Api::V1::CategoriesController < ApplicationController
     if @category.update(category_params)
       render json: @category, status: :ok
     else
-      render json: @category.errors.full_messages, status: :unprocessable_entity
+      render json: @category.errors, status: :unprocessable_entity
     end
   end
 

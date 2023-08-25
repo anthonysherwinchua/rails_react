@@ -6,6 +6,7 @@ import Error from './views/common/Error'
 const CategoryNew = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [tag, setTag] = useState("");
   const [message, setMessage] = useState('');
 
   const onChange = (event, setFunction) => {
@@ -16,12 +17,17 @@ const CategoryNew = () => {
     event.preventDefault();
     const url = "/api/v1/categories";
 
-    if (name.length == 0)
+    if (name.length == 0 || tag.length == 0)
       return;
 
     const body = {
       name,
+      tag,
     };
+
+    document.querySelectorAll('.is-invalid').forEach(function (input) {
+      input.classList.remove('is-invalid')
+    })
 
     const token = document.querySelector('meta[name="csrf-token"]').content;
     fetch(url, {
@@ -35,9 +41,15 @@ const CategoryNew = () => {
       .then(res => {
         handleResponse(res, (r) => {
           if (r.status == 'error') {
-            const errorMessages = r.data.map((message, key) => (
-              <Error key={key} message={message} />
-            ));
+            let errorMessages = []
+            Object.keys(r.data).forEach(function (key) {
+              var message = r.data[key]
+              errorMessages.push(
+                <Error key={key} message={key + " " + message} />
+              )
+              const inputField = document.getElementById(key)
+              inputField.classList.add('is-invalid')
+            })
             setMessage(errorMessages)
           } else {
             navigate(`/categories/${r.data.id}`)
@@ -66,15 +78,12 @@ const CategoryNew = () => {
             <div className="col-md-6">
               <form onSubmit={onSubmit}>
                 <div className="form-group">
-                  <label htmlFor="recipeName">Category name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="form-control"
-                    required
-                    onChange={(event) => onChange(event, setName)}
-                  />
+                  <label htmlFor="name">Category name</label>
+                  <input type="text" name="name" id="name" className="form-control" required onChange={(event) => onChange(event, setName)} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="name">Tag</label>
+                  <input type="text" name="tag" id="tag" className="form-control" required onChange={(event) => onChange(event, setTag)} />
                 </div>
                 <button type="submit" className="btn btn-primary mt-3">
                   Save

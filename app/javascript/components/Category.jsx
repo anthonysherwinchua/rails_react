@@ -90,6 +90,10 @@ const Category = () => {
                 <td>{category.name}</td>
               </tr>
               <tr>
+                <td className="text-end">Tag</td>
+                <td>{category.tag}</td>
+              </tr>
+              <tr>
                 <td className="text-end">Created At</td>
                 <td>{category.created_at}</td>
               </tr>

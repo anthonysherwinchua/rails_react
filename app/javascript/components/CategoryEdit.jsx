@@ -7,12 +7,13 @@ const CategoryNew = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [category, setCategory] = useState('');
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
+  const [tag, setTag] = useState("");
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   function isDisabled() {
-    return (name.length <= 0 || category.name == name)
+    return ((name.length <= 0 || category.name == name) && (tag.length <= 0 || category.tag == tag))
   }
 
   useEffect(() => {
@@ -29,6 +30,8 @@ const CategoryNew = () => {
       .then((res) => {
         if (res !== undefined) {
           setCategory(res)
+          setName(res.name)
+          setTag(res.tag)
         }
       })
       .catch((e) => setErrorMessage(e));
@@ -42,12 +45,17 @@ const CategoryNew = () => {
     event.preventDefault();
     const url = `/api/v1/categories/${params.id}`;
 
-    if (name.length == 0)
+    if (isDisabled())
       return;
 
     const body = {
       name,
+      tag
     };
+
+    document.querySelectorAll('.is-invalid').forEach(function (input) {
+      input.classList.remove('is-invalid')
+    })
 
     const token = document.querySelector('meta[name="csrf-token"]').content;
     fetch(url, {
@@ -61,9 +69,15 @@ const CategoryNew = () => {
       .then(res => {
         handleResponse(res, (r) => {
           if (r.status == 'error') {
-            const errorMessages = r.data.map((message, key) => (
-              <Error key={key} message={message} />
-            ));
+            let errorMessages = []
+            Object.keys(r.data).forEach(function (key) {
+              var message = r.data[key]
+              errorMessages.push(
+                <Error key={key} message={key + " " + message} />
+              )
+              const inputField = document.getElementById(key)
+              inputField.classList.add('is-invalid')
+            })
             setMessage(errorMessages)
           } else {
             navigate(`/categories/${r.data.id}`)
@@ -91,16 +105,12 @@ const CategoryNew = () => {
     <div className="col-md-6">
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="recipeName">Category name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className="form-control"
-            defaultValue={category.name}
-            required
-            onChange={(event) => onChange(event, setName)}
-          />
+          <label htmlFor="name">Category name</label>
+          <input type="text" name="name" id="name" className="form-control" defaultValue={category.name} required onChange={(event) => onChange(event, setName)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="tag">Tag</label>
+          <input type="text" name="tag" id="tag" className="form-control" defaultValue={category.tag} required onChange={(event) => onChange(event, setTag)} />
         </div>
         <button type="submit" className="btn btn-primary mt-3" disabled={isDisabled()}>
           Save
