@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { handleResponse } from './helpers/handleResponse'
-import Confirm from './views/common/Confirm'
+import { handleResponse } from './helpers/handleResponse';
+import Confirm from './views/common/Confirm';
 
 const Category = () => {
   const navigate = useNavigate();
@@ -18,12 +18,12 @@ const Category = () => {
         if (res.ok) {
           return res.json();
         } else {
-          setErrorMessage(noCategoryFound)
+          setErrorMessage(noCategoryFound);
         }
       })
       .then((res) => {
         if (res !== undefined) {
-          setCategory(res)
+          setCategory(res);
         }
       })
       .catch((e) => setErrorMessage(e));
@@ -46,14 +46,14 @@ const Category = () => {
             const errorMessages = r.data.map((message, key) => (
               <Error key={key} message={message} />
             ));
-            setMessage(errorMessages)
+            setMessage(errorMessages);
           } else {
-            navigate(`/categories`)
+            navigate(`/categories`);
           }
         })
       })
       .catch((e) => {
-        setMessage('Something went wrong. <br/>Error Message: ' + e)
+        setMessage('Something went wrong. <br/>Error Message: ' + e);
       });
   };
 

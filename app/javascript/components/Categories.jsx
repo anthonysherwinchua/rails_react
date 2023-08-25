@@ -14,14 +14,14 @@ const Categories = () => {
       .then(res => {
         return handleResponse(res, (r) => {
           if (r.status == 'error') {
-            setMessage(r.data.error)
+            setMessage(r.data.error);
           } else {
-            setCategories(r.data)
+            setCategories(r.data);
           }
         });
       })
       .catch((e) => {
-        setMessage('Something went wrong. <br/>Error Message: ' + e)
+        setMessage('Something went wrong. <br/>Error Message: ' + e);
       });
   }, []);
 
@@ -31,7 +31,7 @@ const Categories = () => {
 
   let content;
   if (categories.length > 0) {
-    content = allCategories
+    content = allCategories;
   } else {
     content = <Error message={message}></Error>
   }

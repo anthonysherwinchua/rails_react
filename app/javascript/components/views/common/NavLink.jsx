@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 
 const NavLink = ({ path, text }) => {
   function isActive() {
-    return (useLocation().pathname == path) ? 'active' : ''
+    return (useLocation().pathname == path) ? 'active' : '';
   }
 
   return (

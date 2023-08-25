@@ -24,14 +24,14 @@ const CategoryNew = () => {
         if (res.ok) {
           return res.json();
         } else {
-          setErrorMessage(noCategoryFound)
+          setErrorMessage(noCategoryFound);
         }
       })
       .then((res) => {
         if (res !== undefined) {
-          setCategory(res)
-          setName(res.name)
-          setTag(res.tag)
+          setCategory(res);
+          setName(res.name);
+          setTag(res.tag);
         }
       })
       .catch((e) => setErrorMessage(e));
@@ -50,11 +50,11 @@ const CategoryNew = () => {
 
     const body = {
       name,
-      tag
+      tag,
     };
 
     document.querySelectorAll('.is-invalid').forEach(function (input) {
-      input.classList.remove('is-invalid')
+      input.classList.remove('is-invalid');
     })
 
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -69,23 +69,23 @@ const CategoryNew = () => {
       .then(res => {
         handleResponse(res, (r) => {
           if (r.status == 'error') {
-            let errorMessages = []
+            let errorMessages = [];
             Object.keys(r.data).forEach(function (key) {
-              var message = r.data[key]
+              var message = r.data[key];
               errorMessages.push(
                 <Error key={key} message={key + " " + message} />
-              )
-              const inputField = document.getElementById(key)
-              inputField.classList.add('is-invalid')
+              );
+              const inputField = document.getElementById(key);
+              inputField.classList.add('is-invalid');
             })
-            setMessage(errorMessages)
+            setMessage(errorMessages);
           } else {
-            navigate(`/categories/${r.data.id}`)
+            navigate(`/categories/${r.data.id}`);
           }
         })
       })
       .catch((e) => {
-        setMessage('Something went wrong. <br/>Error Message: ' + e)
+        setMessage('Something went wrong. <br/>Error Message: ' + e);
       });
   };
 
@@ -117,7 +117,7 @@ const CategoryNew = () => {
         </button>
       </form>
     </div >
-  )
+  );
 
   return (
     <>
