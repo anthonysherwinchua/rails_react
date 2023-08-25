@@ -44,6 +44,6 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def category_params
-    params.permit(:name)
+    params.permit(:name, :tag)
   end
 end
