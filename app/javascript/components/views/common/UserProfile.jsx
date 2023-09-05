@@ -11,23 +11,9 @@ var UserProfile = (function () {
     return getUserFromLocalStorage()['jti']
   };
 
-  var setName = function (name) {
-    let user = getUserFromLocalStorage()
-    user['name'] = name
+  var setUser = function (user) {
     localStorage.setItem('user', JSON.stringify(user))
-  };
-
-  var setId = function (id) {
-    let user = getUserFromLocalStorage()
-    user['id'] = id
-    localStorage.setItem('user', JSON.stringify(user))
-  };
-
-  var setJTI = function (jti) {
-    let user = getUserFromLocalStorage()
-    user['jti'] = jti
-    localStorage.setItem('user', JSON.stringify(user))
-  };
+  }
 
   function getUserFromLocalStorage() {
     let userProfile = localStorage.getItem('user') || '{}'
@@ -39,9 +25,7 @@ var UserProfile = (function () {
     getName,
     getId,
     getJTI,
-    setName,
-    setId,
-    setJTI,
+    setUser,
   }
 
 })();

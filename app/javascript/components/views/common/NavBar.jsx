@@ -34,8 +34,7 @@ const NavBar = () => {
         setErrorMessage('Something went wrong. <br/>Error Message: ' + e);
       })
       .finally(() => {
-        UserProfile.setId('')
-        UserProfile.setName('')
+        UserProfile.setUser('')
       });
   };
 

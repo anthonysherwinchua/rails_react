@@ -60,9 +60,7 @@ const SignUp = () => {
             })
             setMessage(errorMessages);
           } else {
-            UserProfile.setId(r.data.id)
-            UserProfile.setName(r.data.name)
-            UserProfile.setJTI(r.data.jti)
+            UserProfile.setUser(r.data)
             navigate(`/`);
           }
         })

@@ -46,8 +46,7 @@ const Login = () => {
           if (r.status == 'error') {
             setMessage(r.data);
           } else {
-            UserProfile.setId(r.data.id)
-            UserProfile.setName(r.data.name)
+            UserProfile.setUser(r.data)
             navigate(`/`);
           }
         })
