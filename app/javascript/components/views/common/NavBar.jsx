@@ -39,17 +39,24 @@ const NavBar = () => {
       });
   };
 
-  let sessionNavLink = <NavLink path="/signup" text="Sign Up" />
+  let sessionNavLink = (
+    <>
+      <li className="nav-item"><NavLink path="/signup" text="Sign Up" /></li>
+      <li className="nav-item"><NavLink path="/login" text="Login" /></li>
+    </>
+  )
 
   const id = UserProfile.getId()
 
   if (UserProfile.getName()) {
     sessionNavLink = (
       <>
-        <Link className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
-          Logout
-        </Link>
-        <Confirm modalID="confirmModal" title={"Log out"} message="Are you sure?" confirm="Logout!" cancel="No" onConfirm={logout} />
+        <li className="nav-item">
+          <Link className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+            Logout
+          </Link>
+          <Confirm modalID="confirmModal" title={"Log out"} message="Are you sure?" confirm="Logout!" cancel="No" onConfirm={logout} />
+        </li>
       </>
     )
   }
@@ -65,9 +72,7 @@ const NavBar = () => {
             <li className="nav-item">
               <NavLink path="/categories" text="Categories" />
             </li>
-            <li className="nav-item">
-              {sessionNavLink}
-            </li>
+            {sessionNavLink}
           </ul>
         </div>
       </div>

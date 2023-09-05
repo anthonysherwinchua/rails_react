@@ -6,6 +6,11 @@ export const handleResponse = (res, callback) => {
       return res.json().then(json => callback({ status: 'success', data: json }))
     }
   } else {
-    return res.json().then(json => callback({ status: 'error', data: json }))
+    try {
+      JSON.parse(res)
+      return res.json().then(json => callback({ status: 'error', data: json }))
+    } catch {
+      return res.text().then(text => callback({ status: 'error', data: text }))
+    }
   }
 }
