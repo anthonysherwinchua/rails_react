@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavLink from "./NavLink"
 import Confirm from './Confirm';
 import UserProfile from './UserProfile';
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -36,6 +37,7 @@ const NavBar = () => {
       })
       .finally(() => {
         UserProfile.removeUser()
+        navigate(`/`);
       });
   };
 
