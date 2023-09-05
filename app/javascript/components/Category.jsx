@@ -46,14 +46,14 @@ const Category = () => {
             const errorMessages = r.data.map((message, key) => (
               <Error key={key} message={message} />
             ));
-            setMessage(errorMessages);
+            setErrorMessage(errorMessages);
           } else {
             navigate(`/categories`);
           }
         })
       })
       .catch((e) => {
-        setMessage('Something went wrong. <br/>Error Message: ' + e);
+        setErrorMessage('Something went wrong. <br/>Error Message: ' + e);
       });
   };
 
