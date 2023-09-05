@@ -54,12 +54,15 @@ const NavBar = () => {
     )
   } else {
     sessionNavLink = (
-      <li className="nav-item">
-        <Link className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
-          Logout
-        </Link>
-        <Confirm modalID="confirmModal" title={"Log out"} message="Are you sure?" confirm="Logout!" cancel="No" onConfirm={logout} />
-      </li>
+      <>
+        <li className="nav-item"><NavLink path="/me" text="My Profile" /></li>
+        <li className="nav-item">
+          <Link className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+            Logout
+          </Link>
+          <Confirm modalID="confirmModal" title={"Log out"} message="Are you sure?" confirm="Logout!" cancel="No" onConfirm={logout} />
+        </li>
+      </>
     )
   }
 

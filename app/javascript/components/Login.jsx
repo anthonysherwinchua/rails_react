@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleResponse } from './helpers/handleResponse';
-import Error from './views/common/Error';
 import UserProfile from './views/common/UserProfile';
 
 const Login = () => {
