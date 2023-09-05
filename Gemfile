@@ -60,6 +60,9 @@ gem 'devise'
 # Use devise-jwt to handle token dispatch and authentication
 gem 'devise-jwt'
 
+# Use ROTP to generate TOTP links
+gem "rotp", "~> 2.0"
+
 # Use RQRCode to generate QR codes
 gem "rqrcode", "~> 2.0"
 
