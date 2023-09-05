@@ -26,6 +26,12 @@ const Profile = () => {
                 <td>JTI</td>
                 <td>{user.jti}</td>
               </tr>
+              <tr>
+                <td>OTP QRCode</td>
+                <td>
+                  <div dangerouslySetInnerHTML={{ __html: "<svg>" + user.qr_code + "</svg>" }} />
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
