@@ -47,8 +47,8 @@ const SignUp = () => {
     })
       .then(res => {
         handleResponse(res, (r) => {
-          const data = JSON.parse(r.data)
           if (r.status == 'error') {
+            const data = JSON.parse(r.data)
             let errorMessages = [];
             Object.keys(data).forEach(function (key) {
               var message = data[key];
@@ -60,8 +60,9 @@ const SignUp = () => {
             })
             setMessage(errorMessages);
           } else {
-            UserProfile.setId(data.id)
-            UserProfile.setName(data.name)
+            UserProfile.setId(r.data.id)
+            UserProfile.setName(r.data.name)
+            UserProfile.setJTI(r.data.jti)
             navigate(`/`);
           }
         })
