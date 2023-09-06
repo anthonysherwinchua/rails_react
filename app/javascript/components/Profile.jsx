@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserProfile from './views/common/UserProfile';
-import { handleResponse } from './helpers/handleResponse'
 
 const Profile = () => {
-  const user = UserProfile.getUser();
+  const [user, setUser] = useState(UserProfile.getUser());
   const [otp, setOtp] = useState('');
   const [strategy, setStrategy] = useState('totp');
   const [message, setMessage] = useState('');
+
+  function refreshUserProfile() {
+    const url = `/api/v1/me/?email=${user.email}`;
+    fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        if (res !== undefined) {
+          console.log(res)
+          UserProfile.setUser(res)
+          setUser(UserProfile.getUser())
+        }
+      })
+      .catch((e) => setMessage(e));
+  }
+
+  useEffect(() => {
+    refreshUserProfile()
+  }, []);
 
   function isDisabled() {
     return (otp.length <= 0)
@@ -41,6 +62,7 @@ const Profile = () => {
         if (res !== undefined) {
           if (res.verified == true) {
             setMessage("Verification successful");
+            refreshUserProfile()
           } else {
             setMessage("Verification failed");
           }
