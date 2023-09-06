@@ -10,7 +10,7 @@ class Api::OtpController < ApplicationController
     when 'HOTP'
       hotp = ROTP::HOTP.new(user.otp_secret)
       verified = hotp.verify(params[:otp].to_s, user.consumed_timestep)
-      user.increment_counter(:consumed_timestep, 1)
+      user.update(consumed_timestep: user.consumed_timestep + 1)
     end
 
     render json: { verified: verified } , status: :ok
