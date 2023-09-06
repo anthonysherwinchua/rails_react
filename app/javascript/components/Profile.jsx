@@ -32,6 +32,12 @@ const Profile = () => {
                   <div dangerouslySetInnerHTML={{ __html: "<svg>" + user.qr_code + "</svg>" }} />
                 </td>
               </tr>
+              <tr>
+                <td>HOTP Code</td>
+                <td>
+                  {user.hotp_code}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :jti, :qr_code
+  attributes :id, :name, :email, :jti, :qr_code, :hotp_code
 
   def qr_code
     RQRCode::QRCode.new(qr_code_url).as_svg(
@@ -8,6 +8,10 @@ class UserSerializer < ActiveModel::Serializer
       module_size: 3,
       use_path: true,
     )
+  end
+
+  def hotp_code
+    ROTP::HOTP.new(object.otp_secret).at(object.consumed_timestep)
   end
 
   private
